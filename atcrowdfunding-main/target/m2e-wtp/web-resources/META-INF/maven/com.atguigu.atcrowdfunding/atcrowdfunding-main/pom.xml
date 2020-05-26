@@ -1,0 +1,108 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>atcrowdfunding-main</artifactId>
+	<packaging>war</packaging>
+	<description>主项目模块：程序入口，管理页面+配置文件+静态资源+请求分发控制器</description>
+	<!-- 继承父工程 -->
+	<parent>
+		<groupId>com.atguigu.atcrowdfunding</groupId>
+		<artifactId>atcrowdfunding-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../atcrowdfunding-parent/pom.xml</relativePath>
+	</parent>
+	<!-- 依赖需要使用的模块 impl -->
+	<dependencies>
+		<dependency>
+			<groupId>com.atguigu.atcrowdfunding</groupId>
+			<artifactId>atcrowdfunding-manager-impl</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- commons-logging的替代包 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId><!-- 替换commons-logging -->
+			<version>1.7.25</version>
+		</dependency>
+		<!-- jcl的替代包 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId><!-- 替换java.util.logging -->
+			<version>1.7.25</version>
+		</dependency>
+		<!-- log4j+log4j2的替代包 -->
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.10</version>
+		</dependency> -->
+		<!-- 代码中推荐使用 slf4j api+logback实现日志功能 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId><!-- 抽象层，接口 -->
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId><!-- 间接依赖logback-core --><!-- 优秀的日志实现 -->
+			<version>1.1.11</version>
+		</dependency>
+		
+		<!-- 依赖的WEB类库 -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<!-- 目标环境已经有了 -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- 引入Spring的单元测试模块 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.7</version>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.42</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

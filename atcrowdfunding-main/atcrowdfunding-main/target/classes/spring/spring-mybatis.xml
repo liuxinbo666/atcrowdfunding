@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- SqlSessionFactoryBean：提供sqlSession -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- mybatis全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+		<!-- mapper的映射文件:mapper映射文件相当于mapper接口的实现类，放在impl项目中 -->
+		<property name="mapperLocations" value="classpath*:mybatis/mapper/*.xml"></property>
+		<property name="plugins">
+			 <bean class="com.github.pagehelper.PageInterceptor" >
+	          <property name="properties">
+	            <value>reasonable=true</value><!--分页合理化: 防止第一页和最后一页点击时超出页码的范围，查询数据失败 -->
+	          </property>
+	       </bean>
+		</property>
+	</bean>
+	<!-- MapperScannerConfigurer:配置mapper接口所在的包名 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.atguigu.atcrowdfunding.mapper"></property>
+	</bean>
+</beans>
