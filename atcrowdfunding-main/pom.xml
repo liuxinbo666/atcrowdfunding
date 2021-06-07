@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId><!-- 间接依赖logback-core --><!-- 优秀的日志实现 -->
-			<version>1.1.11</version>
+			<version>1.2.0</version>
 		</dependency>
 		
 		<!-- 依赖的WEB类库 -->
